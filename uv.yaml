@@ -1,5 +1,0 @@
-# uv.yaml
-dependencies:
-  - mcp[cli]
-  - httpx
-  - requests
