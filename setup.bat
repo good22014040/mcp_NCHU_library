@@ -1,42 +1,52 @@
 @echo off
 setlocal ENABLEEXTENSIONS
 
-echo [1/6] 正在安裝 uv...
+echo [1/6] Installing uv...
 powershell -ExecutionPolicy ByPass -Command "irm https://astral.sh/uv/install.ps1 | iex"
 if errorlevel 1 (
-    echo ❌ uv 安裝可能失敗（忽略錯誤，繼續執行）...
+    echo Failed to install uv.
 )
 
-echo [2/6] 建立虛擬環境...
+echo [2/6] Creating virtual environment...
 uv venv
 if errorlevel 1 (
-    echo ❌ 建立虛擬環境失敗，請確認 uv 已正確安裝
+    echo Failed to create virtual environment.
 )
 
-echo [3/6] 啟用虛擬環境...
+echo [3/6] Activating virtual environment...
 call .venv\Scripts\activate.bat
 if errorlevel 1 (
-    echo ❌ 無法啟用虛擬環境，請手動檢查 .venv 資料夾
+    echo Failed to activate virtual environment.
 )
 
-echo [4/6] 安裝依賴套件（來自 uv.yaml）...
-uv install
+echo [4/6] Creating pyproject.toml if missing...
+if not exist pyproject.toml (
+    echo [project]> pyproject.toml
+    echo name = "library-api">> pyproject.toml
+    echo version = "0.1.0">> pyproject.toml
+    echo description = "A simple MCP API for querying NCHU library books">> pyproject.toml
+    echo requires-python = ">=3.10">> pyproject.toml
+    echo.>> pyproject.toml
+    echo dependencies = [>> pyproject.toml
+    echo   "mcp[cli]",>> pyproject.toml
+    echo   "httpx",>> pyproject.toml
+    echo   "requests">> pyproject.toml
+    echo ]>> pyproject.toml
+)
+
+echo [5/6] Installing dependencies from pyproject.toml...
+uv pip install
 if errorlevel 1 (
-    echo ❌ 套件安裝失敗，請檢查 uv.yaml 格式或網路連線
+    echo Failed to install dependencies.
 )
 
-echo [5/6] 註冊 MCP 工具...
+echo [6/6] Registering MCP tool and starting the server...
 uv run mcp install library_api.py
-if errorlevel 1 (
-    echo ❌ MCP 註冊失敗，請檢查 library_api.py 是否正常
-)
-
-echo [6/6] 啟動伺服器...
 uv run python library_api.py
 if errorlevel 1 (
-    echo ❌ 程式啟動失敗，請檢查有無語法錯誤或缺少套件
+    echo Failed to start the server.
 )
 
 echo.
-echo ✅ 流程結束。請確認上方是否有錯誤訊息。
+echo Setup complete.
 pause
