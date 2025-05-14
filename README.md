@@ -1,29 +1,30 @@
-# 📚 NCHU Library API Tool
+# 📚 NCHU Library API Tool（Windows 專用）
 
-這個專案是一個簡易的查詢工具，使用 [中興大學圖書館 Primo API](https://nchu.primo.exlibrisgroup.com) 提供的資料，讓你可以透過命令列快速查詢書籍資訊。
+這是針對 Windows 使用者設計的圖書查詢工具，使用 [中興大學圖書館 Primo API](https://nchu.primo.exlibrisgroup.com) 搜尋書籍資訊，並透過 MCP 提供命令列互動能力。
 
 ---
 
-## 🚀 快速開始（Windows 使用者）
+## 🚀 快速開始
 
-### 🧰 0. 安裝 Claude.ai 桌面版
+### 🧰 Step 0：安裝 Claude.ai 桌面版
 
-請先前往以下網址下載 Claude 桌面應用程式（必要）：
+請先下載並安裝 Claude 桌面應用程式（必要）：
 
 🔗 [https://claude.ai/download](https://claude.ai/download)
 
-> ⚠ 注意：請安裝後登入帳號，但不需執行其他動作。
+> ✅ 安裝後請登入帳號即可，不需進一步設定。
 
 ---
 
-### ✅ 1. 安裝 Git（如果尚未安裝）  
-👉 下載網址：https://git-scm.com/
+### ✅ Step 1：安裝 Git（如尚未安裝）
+
+👉 Git 官方下載頁面：https://git-scm.com/
 
 ---
 
-### ✅ 2. 複製並安裝本專案
+### ✅ Step 2：下載與執行專案
 
-打開 PowerShell，依序輸入以下指令：
+開啟 PowerShell，依序輸入下列指令：
 
 ```powershell
 git clone https://github.com/YOUR_USERNAME/library_project.git
