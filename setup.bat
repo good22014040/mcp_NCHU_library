@@ -12,6 +12,7 @@ powershell -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -Scope CurrentU
 call .venv\Scripts\activate.bat
 
 echo [4/4] Installing dependencies with uv add...
+uv init
 uv add "mcp[cli]" httpx requests
 
 echo Executing Claude config script...
