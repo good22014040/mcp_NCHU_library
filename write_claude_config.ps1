@@ -3,17 +3,14 @@ try {
 	$currentDir = Convert-Path .
 
 	if (!(Test-Path $configPath)) {
-		$json = @{
+		$jsonData = @{
 			mcpServers = @{
 				NCHU_library = @{
 					command = "uv"
 					args = @("--directory", $currentDir, "run", "library_api.py")
 				}
 			}
-		} | ConvertTo-Json -Depth 5
-
-		$json | Set-Content -Path $configPath -Encoding UTF8
-		Write-Host "✅ Config created: $configPath"
+		}
 	}
 	else {
 		$raw = Get-Content $configPath -Raw
@@ -32,12 +29,20 @@ try {
 			args = @("--directory", $currentDir, "run", "library_api.py")
 		} -Force
 
-		$jsonOut = $content | ConvertTo-Json -Depth 5
-		Set-Content -Path $configPath -Value $jsonOut -Encoding UTF8
-		Write-Host "✅ Config updated: $configPath"
+		$jsonData = $content
 	}
+
+	# 轉成 JSON 並將前導空白轉為 tab
+	$jsonText = $jsonData | ConvertTo-Json -Depth 5
+	$tabbedJson = $jsonText -replace '^(  )+', {
+		param($m)
+		"`t" * ($m.Value.Length / 2)
+	}
+
+	$tabbedJson | Set-Content -Path $configPath -Encoding UTF8
+	Write-Host "✅ Config written with tab-indented JSON."
 }
 catch {
-	Write-Host "❌ Failed to update config:"
+	Write-Host "❌ Failed to write config:"
 	Write-Host $_.Exception.Message
 }
