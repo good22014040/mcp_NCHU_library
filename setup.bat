@@ -3,6 +3,7 @@ setlocal ENABLEEXTENSIONS
 
 echo [1/4] Installing uv...
 powershell -ExecutionPolicy Bypass -Command "irm https://astral.sh/uv/install.ps1 | iex"
+set PATH=%USERPROFILE%\.local\bin;%PATH%
 
 echo [2/4] Creating virtual environment...
 uv venv
