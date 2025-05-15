@@ -30,3 +30,18 @@
 git clone https://github.com/YOUR_USERNAME/library_project.git
 cd library_project
 .\setup.bat
+
+
+{
+    "mcpServers": {
+        "NCHU_library": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "C:\\Users\\User\\Desktop\\mcp\\library",
+                "run",
+                "library_api.py"
+            ]
+        }
+    }
+}
