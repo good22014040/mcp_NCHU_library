@@ -8,16 +8,12 @@ echo [2/4] Creating virtual environment...
 uv venv
 
 echo [3/4] Activating virtual environment...
-powershell -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force"
 call .venv\Scripts\activate.bat
 
 echo [4/4] Installing dependencies with uv add...
 uv init
 uv add "mcp[cli]" httpx requests
 
-echo Executing Claude config script...
-powershell -ExecutionPolicy Bypass -File write_claude_config.ps1
-
 echo.
-echo ✅ Setup complete.
+echo Setup complete.
 pause
